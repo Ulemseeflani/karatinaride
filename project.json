@@ -1,0 +1,22 @@
+{
+  "overview": "A ride-hailing web app MVP connecting Karatina campus and Karatina town. Passengers request rides, drivers accept and track them in real-time, with fixed KSh 100 pricing.",
+  "features": [
+    "Passenger and driver role selection after login",
+    "Request a ride with pickup and destination",
+    "Real-time driver location tracking on a map",
+    "Driver online/offline toggle and ride acceptance",
+    "Fixed KSh 100 fare with trip completion flow",
+    "Live ride status updates from searching to completed"
+  ],
+  "category": "transportation",
+  "tags": [
+    "ride-hailing",
+    "transport",
+    "real-time",
+    "maps",
+    "karatina",
+    "driver",
+    "passenger"
+  ],
+  "last_updated": "2026-05-04T08:32:40.353Z"
+}

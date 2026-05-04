@@ -1,0 +1,60 @@
+// Version: 1.0.0
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DriverInfo__304189375 =
+  {
+    lastLocation : ?Location__847735819;
+    lastSeen : Timestamp__301639476;
+    online : Bool;
+    userId : UserId__158757552
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Location__847735819 = {lat : Float; lng : Float};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type RideStatus__433751273 =
+  {#Accepted; #Cancelled; #Completed; #Ongoing; #Searching};
+type Ride__792755748 =
+  {
+    createdAt : Timestamp__301639476;
+    destination : Location__847735819;
+    driverId : ?UserId__158757552;
+    fare : Nat;
+    id : Text;
+    passengerId : UserId__158757552;
+    pickup : Location__847735819;
+    status : RideStatus__433751273
+  };
+type Role__300349085 = {#Driver; #Passenger};
+type Timestamp__301639476 = Int;
+type UserId__158757552 = Principal;
+type User__98118558 =
+  {
+    createdAt : Timestamp__301639476;
+    id : UserId__158757552;
+    name : Text;
+    phone : Text;
+    role : Role__300349085
+  };
+actor {
+  stable drivers :
+    {
+      var root : Node__46230540<UserId__158757552, DriverInfo__304189375>;
+      var size : Nat__490723111
+    };
+  stable rides :
+    {
+      var root : Node__46230540<Text, Ride__792755748>;
+      var size : Nat__490723111
+    };
+  stable users :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?User__98118558]];
+      var elementIndex : Nat__490723111
+    }
+};

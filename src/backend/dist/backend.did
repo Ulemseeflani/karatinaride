@@ -1,0 +1,78 @@
+type UserId = principal;
+type User = 
+ record {
+   createdAt: Timestamp;
+   id: UserId;
+   name: text;
+   phone: text;
+   role: Role;
+ };
+type Timestamp = int;
+type Role = 
+ variant {
+   Driver;
+   Passenger;
+ };
+type RideStatus = 
+ variant {
+   Accepted;
+   Cancelled;
+   Completed;
+   Ongoing;
+   Searching;
+ };
+type Ride = 
+ record {
+   createdAt: Timestamp;
+   destination: Location;
+   driverId: opt UserId;
+   fare: nat;
+   id: text;
+   passengerId: UserId;
+   pickup: Location;
+   status: RideStatus;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: User;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: Ride;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type Location = 
+ record {
+   lat: float64;
+   lng: float64;
+ };
+type DriverInfo = 
+ record {
+   lastLocation: opt Location;
+   lastSeen: Timestamp;
+   online: bool;
+   userId: UserId;
+ };
+service : {
+  acceptRide: (rideId: text) -> (Result_1);
+  cancelRide: (rideId: text) -> (Result);
+  completeRide: (rideId: text) -> (Result_1);
+  getCurrentUser: () -> (opt User) query;
+  getMyActiveRide: () -> (opt Ride) query;
+  getOnlineDrivers: () -> (vec DriverInfo) query;
+  getPendingRides: () -> (vec Ride) query;
+  getRide: (id: text) -> (opt Ride) query;
+  getUser: (id: UserId) -> (opt User) query;
+  registerUser: (name: text, phone: text, role: Role) -> (Result_2);
+  rejectRide: (rideId: text) -> (Result);
+  requestRide: (pickup: Location, destination: Location) -> (Result_1);
+  setDriverOnline: (online: bool) -> (Result);
+  startRide: (rideId: text) -> (Result_1);
+  updateDriverLocation: (lat: float64, lng: float64) -> (Result);
+}
